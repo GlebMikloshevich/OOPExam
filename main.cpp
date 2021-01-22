@@ -1,5 +1,5 @@
 #include <iostream>
 #include "Game.h"
 int main() {
-    Game game(8, 4);
+    Game game(8, 5);
 }

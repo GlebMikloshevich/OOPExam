@@ -16,9 +16,8 @@ private:
     int size;
     int cellsToWin = 3;
     int** field; //in fact, we don't need int here. 2 bits is enough
-    FILE* file;
-
-    //char* path = "C:\\Users\\GLEB\\CLionProjects\\OOPExam\\log.txt";
+    std::fstream file;
+    std::string path = "C:\\Users\\GLEB\\CLionProjects\\OOPExam\\log.txt";
 
     Player* player1;
     Player* player2;
@@ -30,10 +29,8 @@ public:
 
     Game();
     Game(int size, int cellsToWin);
+    ~Game();
     void init(int size, int cellsToWin);
-    //TODO destructor field, file, path, player1/2
-
-
 
 };
 

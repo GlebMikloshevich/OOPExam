@@ -13,6 +13,7 @@ private:
     virtual std::pair<int, int> logTurn() = 0;
 
 public:
+    virtual ~Player(){};
     virtual void makeTurn(int size, int** field) = 0;
     friend class Game;
 };

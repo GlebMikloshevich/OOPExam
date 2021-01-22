@@ -3,9 +3,20 @@
 //
 
 #include "Game.h"
-
+std::string output;
 Game::Game(int size, int cellsToWin) {
     this->init(size, cellsToWin);
+}
+
+Game::~Game() {
+    delete this->player1;
+    delete this->player2;
+
+
+    for (int i = 0; i < this->size; i++) {
+        delete this->field[i];
+    }
+    delete [] field;
 }
 
 void Game::init(int size, int cellsToWin) {
@@ -19,40 +30,37 @@ void Game::init(int size, int cellsToWin) {
             this->field[i][j] = 0;
     }
 
-    this->file = fopen("C:\\Users\\GLEB\\CLionProjects\\OOPExam\\log.txt", "w");
+    this->file.open(this->path, std::ios::out);
 
     if (!file) {
         std::cerr<<"file open error\n";
         throw GameException();
     }
 
-    //this->player1 = new HPlayer();
+
+    //this->player1 = new HPlayer(1);
     this->player1 = new AIPlayer(this->size, this->cellsToWin, 1);
-    this->player2 = new AIPlayer(this->size, this->cellsToWin, 2);
-    //this->player2 = new HPlayer(2);
+    this->player2 = new HPlayer(2);
+    //this->player2 = new AIPlayer(this->size, this->cellsToWin, 2);
+
     this->gameLoop();
 }
 
 void Game::printField(){
     for (int i = 0; i < this->size; i++){
         for (int j = 0; j < this->size; j++) {
-            //TODO make grid with numbers around
             switch (this->field[i][j]) {
                 case 0:
                     std::cout<<'.';
                     break;
                 case 1:
-                    //std::cout<<"\033[1;31mX \033[0m";
                     std::cout<<'X';
                     break;
                 case 2:
                     std::cout<<'0';
-                    //std::cout<<"\033[1;33m0 \033[0m";
                     break;
                 default:
                     throw GameException();
-                    exit(1);
-                    break;
             }
             if (j != this->size-1)
                 std::cout<<' ';
@@ -107,20 +115,18 @@ bool Game::printCheckWinner() {
 
     if (winner == 1) {
         std::cout<<"player one won!";
-        fwrite("player one won ", sizeof("player one won"), 1, this->file);
+        this->file<<"player one won";
         return true;
     } else if (winner == 2) {
         std::cout<<"player two won!";
-        fwrite("player two won ", sizeof("player two won"), 1, this->file);
+        this->file<<"player two won";
         return true;
     } else if (winner == -1) {
         std::cout<<"draw";
-        fwrite("draw ", sizeof("draw"), 1, this->file);
+        this->file<<"draw";
         return true;
     }
 
-
-    fwrite("next turn ", sizeof("next turn"), 1, this->file);
     return false;
 
 }
@@ -129,36 +135,27 @@ void Game::gameLoop() {
     std::pair<int, int> coords;
 
     //loop
-
-    /* player one */
     while(true) {
-        std::cout<<"--- Player one turn ---\n";
+        std::cout<<"-----------------------\n|   Player one turn   |\n-----------------------\n";
         player1->makeTurn(this->size, this->field);
         coords = player1->logTurn();
 
-        fwrite("player one", sizeof("player one"), 1, this->file);
-        fwrite(&coords.first, sizeof(int), 1, this->file);
-        fwrite(" ", sizeof(char), 1, this->file);
-        fwrite(&coords.second, sizeof(int), 1, this->file);
-        fwrite("\n", sizeof(char), 1, this->file);
+        this->file<<"Player one "<<coords.first<<' '<<coords.second<<'\n';
         this->printField();
 
         if (this->printCheckWinner())
             break;
         /* player two */
-        std::cout<<"--- Player two turn ---\n";
+        std::cout<<"-----------------------\n|   Player two turn   |\n-----------------------\n";
         player2->makeTurn(this->size, this->field);
         coords = player2->logTurn();
 
-        fwrite("player two", sizeof("player two"), 1, this->file);
-        fwrite(&(coords.first), sizeof(int), 1, this->file);
-        fwrite(" ", sizeof(char), 1, this->file);
-        fwrite(&coords.second, sizeof(int), 1, this->file);
-        fwrite("\n", sizeof(char), 1, this->file);
+        this->file<<"Player two "<<coords.first<<' '<<coords.second<<'\n';
         this->printField();
 
         if (this->printCheckWinner())
             break;
     }
+    this->file.close();
 
 }

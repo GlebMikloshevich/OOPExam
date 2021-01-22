@@ -9,6 +9,7 @@ HPlayer::HPlayer() {}
 HPlayer::HPlayer(int playerNumber) {
     this->playerNumber = playerNumber;
 }
+HPlayer::~HPlayer(){}
 
 std::pair<int, int> HPlayer::logTurn() {
     return this->last_turn;

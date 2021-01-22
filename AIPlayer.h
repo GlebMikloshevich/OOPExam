@@ -21,8 +21,9 @@ public:
     AIPlayer();
     AIPlayer(int size, int cellsToWin);
     AIPlayer(int size, int cellsToWin, int playerNumber);
+    ~AIPlayer();
     void init(int size, int cellsToWin,  int playerNumber);
-    //TODO destructor weights
+
     friend class Game;
 };
 

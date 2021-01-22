@@ -7,13 +7,15 @@
 
 
 class HPlayer : public Player {
-public:
+private:
     int playerNumber = 1;
     std::pair <int, int> last_turn;
+    std::pair<int, int> logTurn();
 
+public:
     HPlayer();
     HPlayer(int playerNumber);
-    std::pair<int, int> logTurn();
+    ~HPlayer();
     void makeTurn(int size, int** field);
 
     friend class Game;
