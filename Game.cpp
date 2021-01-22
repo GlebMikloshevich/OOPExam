@@ -12,7 +12,6 @@ Game::~Game() {
     delete this->player1;
     delete this->player2;
 
-
     for (int i = 0; i < this->size; i++) {
         delete this->field[i];
     }
@@ -23,9 +22,9 @@ void Game::init(int size, int cellsToWin) {
     this->size = size;
     this->cellsToWin = cellsToWin;
 
-    this->field = new int* [size];
+    this->field = new int8_t* [size];
     for (int i = 0; i < size; i++){
-        this->field[i] = new int[size];
+        this->field[i] = new int8_t[size];
         for (int j = 0; j < size; j++)
             this->field[i][j] = 0;
     }
@@ -69,7 +68,7 @@ void Game::printField(){
     }
 }
 
-int Game::getWinner() {
+int8_t Game::getWinner() {
     int vi[4] = {1, 1, 1, 0};
     int vj[4] = {1, -1, 0, 1};
     int fullness = 0;
@@ -111,7 +110,7 @@ int Game::getWinner() {
 }
 
 bool Game::printCheckWinner() {
-    int winner = this->getWinner();
+    int8_t winner = this->getWinner();
 
     if (winner == 1) {
         std::cout<<"player one won!";

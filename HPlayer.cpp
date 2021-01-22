@@ -6,16 +6,20 @@
 
 HPlayer::HPlayer() {}
 
-HPlayer::HPlayer(int playerNumber) {
+HPlayer::HPlayer(int8_t playerNumber) {
     this->playerNumber = playerNumber;
 }
 HPlayer::~HPlayer(){}
+
+void HPlayer::init(uint8_t playerNumber) {
+    this->playerNumber = playerNumber;
+}
 
 std::pair<int, int> HPlayer::logTurn() {
     return this->last_turn;
 }
 
-void HPlayer::makeTurn(int size, int **field) {
+void HPlayer::makeTurn(int size, int8_t **field) {
     int r, c;
     std::cout<<"Input row and column.\n";
     std::cin>>r>>c;

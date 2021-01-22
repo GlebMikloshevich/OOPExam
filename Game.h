@@ -6,6 +6,7 @@
 #include "AIPlayer.h"
 #include <string>
 #include <stdio.h>
+#include <stdint.h>
 
 #ifndef OOPEXAM_GAME_H
 #define OOPEXAM_GAME_H
@@ -15,14 +16,14 @@ class Game {
 private:
     int size;
     int cellsToWin = 3;
-    int** field; //in fact, we don't need int here. 2 bits is enough
+    int8_t** field; //in fact, we don't need int here. 2 bits is enough
     std::fstream file;
     std::string path = "C:\\Users\\GLEB\\CLionProjects\\OOPExam\\log.txt";
 
     Player* player1;
     Player* player2;
     void printField();
-    int getWinner(); // -1 - gameIsOver, 0 - no one, 1 - player 1, 2 - player 2
+    int8_t getWinner(); // -1 - gameIsOver, 0 - no one, 1 - player 1, 2 - player 2
     bool printCheckWinner();
     void gameLoop();
 public:

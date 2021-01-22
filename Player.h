@@ -14,7 +14,7 @@ private:
 
 public:
     virtual ~Player(){};
-    virtual void makeTurn(int size, int** field) = 0;
+    virtual void makeTurn(int size, int8_t** field) = 0;
     friend class Game;
 };
 

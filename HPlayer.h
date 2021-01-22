@@ -14,9 +14,11 @@ private:
 
 public:
     HPlayer();
-    HPlayer(int playerNumber);
+    HPlayer(int8_t playerNumber);
     ~HPlayer();
-    void makeTurn(int size, int** field);
+
+    void init(uint8_t playerNumber);
+    void makeTurn(int size, int8_t** field);
 
     friend class Game;
 };
